@@ -1,7 +1,23 @@
 {
+  // "compilerOptions": {
+  //   "moduleResolution": "node", // Node.js modül sistemine uygun çözümleme
+  //   "esModuleInterop": true, // ES modülleriyle uyum
+  //   "allowSyntheticDefaultImports": true, // Varsayılan importlar için izin
+  //   "strict": true, // TypeScript'in katı modunu açar
+  //   "skipLibCheck": true, // Kütüphanelerdeki tür denetimini atlar
+  //   "forceConsistentCasingInFileNames": true, // Dosya isimlerinde tutarlılık
+  //   "target": "ES6", // ES6'ya derlenir
+  //   "module": "ESNext", // ESNext modül sistemi kullanılır
+  //   "jsx": "react", // React JSX destekler
+  //   "resolveJsonModule": true // JSON modüllerini çözmek için
+  // },
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

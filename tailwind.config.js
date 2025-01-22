@@ -24,6 +24,9 @@ export default {
       animation: {
         shake: 'shake 0.2s linear',
       },
+      boxShadow: {
+        'top-darkblue': '0 -6px 6px rgba(29, 53, 87, 1)',
+      },
     },
   },
   plugins: [],
