@@ -30,6 +30,10 @@ body {
     @apply bg-cream
 }
 
+#root>div {
+    @apply min-h-[calc(100vh-150px)]
+}
+
 .slider-wrapper, .slider, .carousel {
     @apply h-full
 }

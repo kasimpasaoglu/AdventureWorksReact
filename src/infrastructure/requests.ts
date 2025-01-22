@@ -57,7 +57,7 @@ export const loadCategories = async (): Promise<Category[]> => {
 };
 
 // Alt kategorileri yükleme
-export const loadSubCategories = async (categoryId: string): Promise<SubCategory[]> => {
+export const loadSubCategories = async (categoryId: number): Promise<SubCategory[]> => {
     return await apiRequest<SubCategory[]>("GET", `/category/${categoryId}`);
 };
 

@@ -1,36 +1,54 @@
-/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react'
+import { Filters } from '../../types/product'
+import { Category, SubCategory } from '../../types/categories'
+import { loadCategories, loadSubCategories } from '../../infrastructure/requests'
 
-import { Filters } from "../../types/product";
-
-interface FilterProps {
-    categories: string[],
-    subCategories: string[],
-    selectedCategory: number,
-    selectedSubCategory: number,
-    onCategorySelect: (categoryId: number) => void,
-    onSubCategorySelect: (categoryId: number) => void,
-    onMinPriceChange,
-    onMaxPriceChange,
-    onApply,
-    colors = [],
-    onColorChange,
+type Props = {
+    filter: Filters
 }
 
+function Filter({ }: Props) {
+    const [filter, setFilter] = useState<Filters>()
+    const [categories, setCategories] = useState<Category[]>([])
+    const [subCategories, setSubCategories] = useState<SubCategory[]>([])
+
+    const fetchCategories = async () => {
+        try {
+            const data = await loadCategories()
+            setCategories(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const fetchSubCategories = async (catId: number) => {
+        try {
+            const data = await loadSubCategories(catId)
+            setSubCategories(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const onCategorySelect = (catId: number) => {
+        setFilter((prev) => ({
+            ...prev, productCategoryId: catId
+        }))
+        fetchSubCategories(catId)
+        console.log(filter)
+    }
+    const onSubCategorySelect = (subId: number) => {
+        setFilter((prev) => ({
+            ...prev, productSubcategoryId: subId
+        }))
+        console.log(filter)
+    }
 
 
-function Filters(
-    categories: string[],
-    subCategories = [],
-    selectedCategory,
-    selectedSubCategory,
-    onCategorySelect,
-    onSubCategorySelect,
-    onMinPriceChange,
-    onMaxPriceChange,
-    onApply,
-    colors = [],
-    onColorChange,
-) {
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+
     return (
         <div className="flex flex-col px-3 py-6 overflow-y-auto shadow-xl max-h-[90vh] md:max-h-full md:overflow-y-hidden bg-cream rounded-xl border-skyblue border">
             {/* Categories Section */}
@@ -45,7 +63,7 @@ function Filters(
                             type="radio"
                             name="categories"
                             value={category.productCategoryId}
-                            checked={selectedCategory === category.productCategoryId}
+                            checked={filter?.productCategoryId === category.productCategoryId}
                             onChange={() => onCategorySelect(category.productCategoryId)}
                         />
                         <span className="px-3 text-center rounded">{category.name}</span>
@@ -66,7 +84,7 @@ function Filters(
                                 type="radio"
                                 name="subCategories"
                                 value={subCategory.productSubcategoryId}
-                                checked={selectedSubCategory === subCategory.productSubcategoryId}
+                                checked={filter?.productSubcategoryId === subCategory.productSubcategoryId}
                                 onChange={() => onSubCategorySelect(subCategory.productSubcategoryId)}
                             />
                             <span className="px-3 text-center rounded">{subCategory.name}</span>
@@ -90,7 +108,7 @@ function Filters(
                         step="any"
                         min="0"
                         placeholder="Min Price$"
-                        onChange={(e) => onMinPriceChange(Number(e.target.value))}
+                    // onChange={(e) => onMinPriceChange(Number(e.target.value))}
                     />
 
                 </div>
@@ -105,9 +123,9 @@ function Filters(
                         step="any"
                         min="0"
                         placeholder="Max Price $"
-                        onChange={(e) =>
-                            onMaxPriceChange(e.target.value === "" ? null : Number(e.target.value))
-                        }
+                    // onChange={(e) =>
+                    //     onMaxPriceChange(e.target.value === "" ? null : Number(e.target.value))
+                    // }
                     />
 
                 </div>
@@ -115,7 +133,7 @@ function Filters(
 
 
             {/* Colors Filter Section */}
-            {colors ?
+            {/* {colors ?
                 <div className="flex flex-col gap-1">
                     <h4>Select Colors</h4>
                     {colors.map((color, index) => (
@@ -131,18 +149,18 @@ function Filters(
                     ))}
                 </div>
                 : null
-            }
+            } */}
 
             {/* Apply Button */}
-            <button
+            {/* <button
                 onClick={onApply}
                 className="self-center py-3 my-5 bg-darkblue text-cream px-11 rounded-2xl"
                 type="button"
             >
                 Apply
-            </button>
+            </button> */}
         </div>
-    );
+    )
 }
 
-export default Filters;
+export default Filter

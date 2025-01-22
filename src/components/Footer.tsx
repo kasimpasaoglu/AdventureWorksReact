@@ -4,7 +4,7 @@ type Props = {}
 
 const Footer = (props: Props) => {
     return (
-        <footer className="px-10 py-5 shadow-top-darkblue rounded-t-3xl text-cream bg-darkblue grid md:grid-cols-3">
+        <footer className="px-10 py-5 shadow-top-darkblue rounded-t-3xl text-cream bg-darkblue grid md:grid-cols-3 gap-3">
             <p className="text-center">
                 Designed and created from scratch by <a className="hover:underline duration-300" href="https://www.linkedin.com/in/kasim-pasaoglu/" target="_blank" rel="noopener noreferrer">Kasim Pasaoglu</a>
             </p>
