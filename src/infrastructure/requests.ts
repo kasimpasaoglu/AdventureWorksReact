@@ -11,6 +11,8 @@ const apiClient = axios.create({
     },
 });
 
+
+
 // Genel API istegi
 export const apiRequest = async <T, K = unknown>(
     method: Method,
@@ -39,40 +41,12 @@ export const getSingleProductById = async (productId: string): Promise<Product> 
     return await apiRequest<Product>("GET", `/product/${productId}`);
 };
 
+
 // Son eklenen ürünleri yükleme
-export const loadRecents = async (): Promise<Product[]> => {
-    return await apiRequest<Product[]>("GET", "/product/recent");
-};
 
-// Ürün listesini yükleme
-export const fetchProductList = async (
-    requestBody: Filters
-): Promise<Product[]> => {
-    return await apiRequest<Product[], Filters>("POST", "/Product", requestBody);
-};
 
-// Kategorileri yükleme
-export const loadCategories = async (): Promise<Category[]> => {
-    return await apiRequest<Category[]>("GET", "/category");
-};
 
-// Alt kategorileri yükleme
-export const loadSubCategories = async (categoryId: number): Promise<SubCategory[]> => {
-    return await apiRequest<SubCategory[]>("GET", `/category/${categoryId}`);
-};
 
-export const getColors = async (
-    selectedCategory: number,
-    selectedSubCategory: number,
-): Promise<string[]> => {
-    let endpoint = `/color`;
-    if (selectedCategory && selectedSubCategory) {
-        endpoint += `/${selectedCategory}/${selectedSubCategory}`;
-    } else if (selectedCategory) {
-        endpoint += `/${selectedCategory}`;
-    }
-    return await apiRequest<string[]>("GET", endpoint);
-};
 
 
 

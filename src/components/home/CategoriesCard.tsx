@@ -3,6 +3,8 @@ import { IoIosBicycle } from "react-icons/io";
 import { BiSolidComponent } from "react-icons/bi";
 import { GiClothes } from "react-icons/gi";
 import { FaHelmetSafety } from "react-icons/fa6";
+import { useContext } from 'react';
+import { ShopContext } from '../../context/ShopContext';
 
 type Props = {
     categories: Category[]
@@ -23,7 +25,9 @@ const CategoryIcon = ({ id, className }: { id: number, className: string }) => {
     }
 };
 
-function CategoriesCard({ categories }: Props) {
+function CategoriesCard() {
+    const { categories } = useContext(ShopContext)
+
     return (
         <div className='grid md:grid-cols-4 gap-1 md:gap-10 mt-10'>
             <h3 className='text-center text-darkblue md:col-span-4 flex items-center justify-center'>

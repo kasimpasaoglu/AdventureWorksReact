@@ -2,16 +2,14 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Transition } from '@head
 import { Link } from 'react-router';
 import logo from '../assets/react.svg'
 import { Bars3Icon, BuildingStorefrontIcon, ChevronDownIcon, HomeIcon, ShoppingCartIcon, UserCircleIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import { useSelector } from 'react-redux';
 import { Badge } from '@mui/material';
-import { RootState } from '../store/store';
 import { useLocation } from 'react-router';
 
 
 
 function Header() {
 
-    const count = useSelector((state: RootState) => state.cartCounter.value)
+
 
     const { pathname } = useLocation();
 
@@ -48,7 +46,7 @@ function Header() {
                                 className={`${pathname === '/cart' ? "bg-black" : "bg-lightred "} text-cream px-2 py-1 duration-300 rounded-lg hover:bg-red-900`}
                                 type="button"
                             >
-                                <Badge badgeContent={count} color='primary'>
+                                <Badge badgeContent='1' color='primary'>
                                     <ShoppingCartIcon className="h-6" />
                                 </Badge>
                             </button>
@@ -73,7 +71,7 @@ function Header() {
                                             className={`${pathname === '/cart' ? "bg-black" : "bg-lightred "} text-cream px-2 py-1 duration-300 rounded-lg hover:bg-red-900`}
                                             type="button"
                                         >
-                                            <Badge badgeContent={count} color='primary'>
+                                            <Badge badgeContent='1' color='primary'>
                                                 <ShoppingCartIcon className="h-6" />
                                             </Badge>
                                         </button>

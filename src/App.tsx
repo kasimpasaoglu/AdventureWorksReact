@@ -1,6 +1,5 @@
 
-import { Provider } from 'react-redux'
-import { store } from './store/store'
+
 import Home from './pages/Home'
 import Header from './components/Header'
 import { Route, Routes } from 'react-router'
@@ -12,25 +11,30 @@ import Account from './pages/Account'
 import About from './pages/About'
 import Detail from './pages/Detail'
 
+import { ShopContextProvider } from './context/ShopContext'
+
+
 
 
 function App() {
 
 
   return (
-    <Provider store={store}>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/Shop' element={<Shop />} />
-        <Route path='/About' element={<About />} />
-        <Route path='/Login' element={<Login />} />
-        <Route path='/Cart' element={<Cart />} />
-        <Route path='/Account' element={<Account />} />
-        <Route path='/Detail/:id/:name' element={<Detail />} />
-      </Routes>
-      <Footer />
-    </Provider>
+    <>
+      <ShopContextProvider>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/Shop' element={<Shop />} />
+          <Route path='/About' element={<About />} />
+          <Route path='/Login' element={<Login />} />
+          <Route path='/Cart' element={<Cart />} />
+          <Route path='/Account' element={<Account />} />
+          <Route path='/Detail/:id/:name' element={<Detail />} />
+        </Routes>
+        <Footer />
+      </ShopContextProvider>
+    </>
   )
 }
 
