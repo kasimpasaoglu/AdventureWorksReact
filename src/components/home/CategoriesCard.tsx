@@ -1,14 +1,11 @@
-import { Category } from '../../types/categories'
 import { IoIosBicycle } from "react-icons/io";
 import { BiSolidComponent } from "react-icons/bi";
 import { GiClothes } from "react-icons/gi";
 import { FaHelmetSafety } from "react-icons/fa6";
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ShopContext } from '../../context/ShopContext';
+import { useNavigate } from "react-router";
 
-type Props = {
-    categories: Category[]
-}
 
 const CategoryIcon = ({ id, className }: { id: number, className: string }) => {
     switch (id) {
@@ -26,7 +23,22 @@ const CategoryIcon = ({ id, className }: { id: number, className: string }) => {
 };
 
 function CategoriesCard() {
-    const { categories } = useContext(ShopContext)
+    const { categories, setFilters, fetchCategories } = useContext(ShopContext)
+
+    const navigate = useNavigate()
+
+    const handleCategoryClick = (categoryId: number) => {
+        setFilters((prev) => ({
+            ...prev,
+            productCategoryId: categoryId,
+            productSubcategoryId: undefined
+        }))
+        navigate("/shop")
+    }
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
 
     return (
         <div className='grid md:grid-cols-4 gap-1 md:gap-10 mt-10'>
@@ -37,7 +49,11 @@ function CategoriesCard() {
             </h3>
             {
                 categories.map((category) => (
-                    <button key={category.productCategoryId} className='group duration-500 hover:bg-darkblue flex text-cream items-center justify-evenly bg-seablue rounded-lg p-4'>
+                    <button
+                        key={category.productCategoryId}
+                        className='group duration-500 hover:bg-darkblue flex text-cream items-center justify-evenly bg-seablue rounded-lg p-4'
+                        onClick={() => handleCategoryClick(category.productCategoryId)}
+                    >
                         <CategoryIcon className='duration-500 group-hover:scale-125 group-hover:rotate-3' id={category.productCategoryId} />
                         <h6 className='duration-500 group-hover:scale-125 group-hover:-rotate-3'>{category.name}</h6>
                     </button>

@@ -8,7 +8,7 @@ function Filter() {
 
     const onCategorySelect = (catId: number) => {
         setFilters((prev) => ({
-            ...prev, productCategoryId: catId
+            ...prev, productCategoryId: catId, productSubcategoryId: undefined
         }))
         fetchSubCategories(catId)
         fetchColors(catId)

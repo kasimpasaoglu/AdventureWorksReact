@@ -30,7 +30,8 @@ body {
     @apply bg-cream
 }
 
-#root>div {
+#root>div,
+#root>section {
     @apply min-h-[calc(100vh-150px)]
 }
 

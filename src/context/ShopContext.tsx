@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { Filters, Product } from "../types/product";
 import { apiRequest } from "../infrastructure/requests";
 import { Category, SubCategory } from "../types/categories";
@@ -12,7 +12,7 @@ const defaultFilters: Filters = {
     sortBy: undefined,
     searchString: undefined,
     pageSize: undefined,
-    pageNumber: undefined,
+    pageNumber: 1,
 }
 
 
@@ -30,6 +30,9 @@ interface ShopContextType {
     fetchSubCategories: (catId: number) => Promise<void>;
 
     products: Product[];
+
+    isFetching: boolean
+    setIsFetching: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -47,6 +50,9 @@ const ShopContext = createContext<ShopContextType>({
     fetchSubCategories: async () => { },
 
     products: [],
+
+    isFetching: false,
+    setIsFetching: () => undefined,
 })
 
 function ShopContextProvider({ children }: { children: React.ReactNode }) {
@@ -57,13 +63,18 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
     const [colors, setColors] = useState<string[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
 
+    // en guncel filters degerini saklamak icin
+    const filtersRef = useRef(filters)
+
+    useEffect(() => {
+        filtersRef.current = filters;
+    }, [filters])
+
+
+
     const fetchCategories = async () => {
         const data = await apiRequest<Category[]>("GET", "/category");
         setCategories(data);
-        setFilters((prev) => ({
-            ...prev,
-            productSubcategoryId: undefined
-        }))
     };
 
     const fetchSubCategories = async (catId: number) => {
@@ -72,8 +83,11 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
     };
 
 
-    const fetchProducts = async (currentFilters: Filters) => {
+    const [isFetching, setIsFetching] = useState(false)
+
+    const fetchProducts = async (isNewFilter: boolean) => {
         try {
+            const currentFilters = filtersRef.current; // en guncel filters degerleri
 
             const params = new URLSearchParams();
 
@@ -93,10 +107,12 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
             const apiUrl = `/product?${queryString}`; // API URL’si
 
             const data = await apiRequest<Product[]>("GET", apiUrl);
-            setProducts(data);
-            console.log(data)
+            setProducts(isNewFilter ? data : (prev) => [...prev, ...data]);
+            // yeni filtreyse direk datayi bas, sadece sayfa degismis filtre ayniysa datayi `ekle`
         } catch (error) {
             console.error("Error fetching products:", error);
+        } finally {
+            setIsFetching(false) // yukleme tamamlandi
         }
     };
 
@@ -117,12 +133,13 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
 
 
     useEffect(() => {
+        const isNewFilter = filters.pageNumber === 1; // pageNumber degeri degisirse false olacak
         const timeoutId = setTimeout(() => {
-            fetchProducts(filters); // debounce suresi doldugunda istek atilir
+            fetchProducts(isNewFilter); // debounce suresi doldugunda istek atilir
         }, 500);
 
         return () => clearTimeout(timeoutId); // onceki setTimeoutu temizleyerek gereksiz istekleri engelle
-    }, [filters]);
+    }, [filters]); //filtre degisimi ref'e yansidiktan sonra tetikle
 
 
     useEffect(() => {
@@ -132,8 +149,24 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
         }))
     }, [colors]) // colors listesi degisirse, secilen renkleri sifirla
 
+    useEffect(() => {
+        // Eğer filtreler değişmişse ve sadece sayfa numarası değişmemişse, sayfa numarasını sıfırla
+        setFilters((prev) => ({
+            ...prev,
+            pageNumber: 1, // Yeni filtrede sayfa numarasını 1 yap
+        }));
+    }, [JSON.stringify({ ...filters, pageNumber: undefined })]); // Sayfa numarası hariç diğer filtreleri izle
+
+
     return (
-        <ShopContext.Provider value={{ filters, setFilters, colors, fetchColors, categories, fetchCategories, subCategories, fetchSubCategories, products }}>
+        <ShopContext.Provider value={{
+            filters, setFilters,
+            colors, fetchColors,
+            categories, fetchCategories,
+            subCategories, fetchSubCategories,
+            products,
+            isFetching, setIsFetching
+        }}>
             {children}
         </ShopContext.Provider>
     )
