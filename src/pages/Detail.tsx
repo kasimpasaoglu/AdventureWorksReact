@@ -44,8 +44,9 @@ function Detail() {
 
                     <div className='col-span-1 flex flex-col items-start justify-evenly p-5 gap-3'>
                         <div className='flex gap-2 items-center'>
-                            <p className='text-lg font-bold'>Price: ${item.standardCost}</p>
-                            <p className='line-through'>${item.listPrice}</p>
+                            <p className='text-lg font-bold'>Price: {item.standardCost} $</p>
+                            <p className='line-through'>{item.listPrice} $</p>
+                            <p>+ tax</p>
                         </div>
                         {item.class &&
                             <p>

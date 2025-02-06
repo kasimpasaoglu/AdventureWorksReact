@@ -47,7 +47,7 @@ function ProductCard({ product }: Props) {
                     </p>
                 }
 
-                <p><strong className="mr-2 text-xl">{product.standardCost?.toFixed(2)} $ </strong><span className="text-sm line-through">{product.listPrice} $</span></p>
+                <p><strong className="mr-2 text-xl">{product.standardCost?.toFixed(2)} $ </strong> <span className="text-sm line-through">{product.listPrice} $</span> + tax</p>
 
                 <div className="flex gap-2 justify-evenly">
                     <button
