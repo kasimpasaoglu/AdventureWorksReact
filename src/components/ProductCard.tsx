@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Product } from '../types/product'
 import { MagnifyingGlassCircleIcon, ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
+import { CartContext } from '../context/CartContext'
 
 type Props = {
     product: Product
@@ -9,6 +10,7 @@ type Props = {
 
 function ProductCard({ product }: Props) {
 
+    const { handleAddToCart } = useContext(CartContext)
     const [isAnimating, setIsAnimating] = useState(false)
 
     let nameUrl = product.name.replace(/ /g, '-')
@@ -17,6 +19,7 @@ function ProductCard({ product }: Props) {
 
     const handleClick = () => {
         setIsAnimating(true)
+        handleAddToCart({ productId: product.productId, quantity: 1 })
         setTimeout(() => {
             setIsAnimating(false)
         }, 200);
@@ -48,7 +51,6 @@ function ProductCard({ product }: Props) {
 
                 <div className="flex gap-2 justify-evenly">
                     <button
-
                         className={`bg-darkblue px-4 py-1 rounded-md hover:bg-lightred text-cream ${isAnimating ? 'animate-shake' : ''}`}
                         type="button"
                         onClick={handleClick}>
