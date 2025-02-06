@@ -96,7 +96,7 @@ export const Shop = () => {
                 <Filter />
             </aside>
 
-            <div className="grid grid-cols-1 col-span-1 gap-3 md:grid-cols-3 md:col-span-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 col-span-1 md:col-span-3  gap-3">
                 {products.length > 0 ? (
                     products?.map((product) => (
                         <ProductCard product={product} key={product.productId} />

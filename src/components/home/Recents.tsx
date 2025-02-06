@@ -14,8 +14,8 @@ function Recents() {
             .catch(console.error);
     }, []);
     return (
-        <div className='grid md:grid-cols-4 gap-1 md:gap-10 mt-10'>
-            <h3 className='text-center text-darkblue md:col-span-4 flex items-center justify-center'>
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-10 mt-10'>
+            <h3 className='text-center text-darkblue md:col-span-2 lg:col-span-3 xl:col-span-4 flex items-center justify-center'>
                 <span className="flex-grow border-t border-darkblue mx-4"></span>
                 Recent Products
                 <span className="flex-grow border-t border-darkblue mx-4"></span>
