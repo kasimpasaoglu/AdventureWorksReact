@@ -51,14 +51,14 @@ function Header() {
                                 </Badge>
                             </button>
 
-                            <button
+                            <Link to="/account"
                                 className={`${pathname === '/account' ? "text-cream bg-black" : "text-darkblue bg-skyblue"} px-2 py-1 duration-300 rounded-lg  hover:bg-gray-600 hover:text-cream`}
                                 type="button"
                             >
                                 <Badge>
                                     <UserIcon className="h-6" />
                                 </Badge>
-                            </button>
+                            </Link>
 
                         </div>
 

@@ -13,6 +13,9 @@ import Detail from './pages/Detail'
 import { ShopContextProvider } from './context/ShopContext'
 import { Shop } from './pages/Shop'
 import GoTopButton from './components/GoTopButton'
+import { AuthContextProvider } from './context/AuthContext'
+import Register from './pages/Register'
+
 
 
 
@@ -22,20 +25,23 @@ function App() {
 
   return (
     <>
-      <ShopContextProvider>
-        <Header />
-        <GoTopButton />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/Shop' element={<Shop />} />
-          <Route path='/About' element={<About />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Cart' element={<Cart />} />
-          <Route path='/Account' element={<Account />} />
-          <Route path='/Detail/:id/:name' element={<Detail />} />
-        </Routes>
-        <Footer />
-      </ShopContextProvider>
+      <AuthContextProvider>
+        <ShopContextProvider>
+          <Header />
+          <GoTopButton />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/Shop' element={<Shop />} />
+            <Route path='/About' element={<About />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Register' element={<Register />} />
+            <Route path='/Cart' element={<Cart />} />
+            <Route path='/Account' element={<Account />} />
+            <Route path='/Detail/:id/:name' element={<Detail />} />
+          </Routes>
+          <Footer />
+        </ShopContextProvider>
+      </AuthContextProvider>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
-import { Filters, Product } from "../types/product";
-import { Category, SubCategory } from "../types/categories";
+import { Product } from "../types/product";
+
 
 // Axios istemcisi
 const apiClient = axios.create({
@@ -40,14 +40,5 @@ export const apiRequest = async <T, K = unknown>(
 export const getSingleProductById = async (productId: string): Promise<Product> => {
     return await apiRequest<Product>("GET", `/product/${productId}`);
 };
-
-
-// Son eklenen ürünleri yükleme
-
-
-
-
-
-
 
 export default apiClient;

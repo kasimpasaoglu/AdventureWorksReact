@@ -1,32 +1,26 @@
 export interface RegisterUser {
     title: string
     firstName: string
-    middleName?: string
     lastName: string
     emailAddress1: string
     password: string
-    emailPromotion: number
     addressTypeId: number
     addressLine1: string
     addressLine2: string
     city: string
-    stateProvinceId: number
     postalCode: string
 }
 
 export interface User {
     title?: string
     firstName?: string
-    middleName?: string
     lastName?: string
     emailAddress1?: string
     password?: string
-    emailPromotion?: number
     addressTypeId?: number
     addressLine1?: string
     addressLine2?: string
     city?: string
-    stateProvinceId?: number
     postalCode?: string
 }
 

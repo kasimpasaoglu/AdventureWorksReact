@@ -70,8 +70,6 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
         filtersRef.current = filters;
     }, [filters])
 
-
-
     const fetchCategories = async () => {
         const data = await apiRequest<Category[]>("GET", "/category");
         setCategories(data);
@@ -81,7 +79,6 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
         const data = await apiRequest<SubCategory[]>("GET", `/category/${catId}`);
         setSubCategories(data);
     };
-
 
     const [isFetching, setIsFetching] = useState(false)
 
@@ -116,7 +113,6 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-
     const fetchColors = async (catId?: number, subCatId?: number) => {
         let endpoint = "/color";
         if (catId) {
@@ -129,8 +125,6 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
         const colors = await apiRequest<string[]>("GET", endpoint);
         setColors(colors);
     };
-
-
 
     useEffect(() => {
         const isNewFilter = filters.pageNumber === 1; // pageNumber degeri degisirse false olacak
@@ -156,7 +150,6 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
             pageNumber: 1, // Yeni filtrede sayfa numarasını 1 yap
         }));
     }, [JSON.stringify({ ...filters, pageNumber: undefined })]); // Sayfa numarası hariç diğer filtreleri izle
-
 
     return (
         <ShopContext.Provider value={{
