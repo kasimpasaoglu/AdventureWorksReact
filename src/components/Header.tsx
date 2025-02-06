@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Transition } from '@headlessui/react';
 import { Link, useNavigate } from 'react-router';
-import logo from '../../public/react.svg'
+import logo from '/react.svg'
 import { Bars3Icon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Badge } from '@mui/material';
 import { useLocation } from 'react-router';

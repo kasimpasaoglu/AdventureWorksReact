@@ -1,13 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { Cart, Details, ToUpdateItem } from '../types/cart';
 import { AuthContext } from './AuthContext';
-import { addCartItem, getCartItems } from '../infrastructure/cartRequests';
+import { addCartItem, getCartItems, removeCartItem } from '../infrastructure/cartRequests';
 import { useNavigate } from 'react-router';
 
 
 interface CartContextType {
     cartItems: Cart;
     handleAddToCart: (item: ToUpdateItem) => void;
+    handleRemoveFromCart: (item: ToUpdateItem) => void;
 }
 
 const defaultCart: Cart = { details: {} as Details, items: [] };
@@ -17,7 +18,8 @@ const CartContext = createContext<CartContextType>({
         details: {} as Details,
         items: []
     },
-    handleAddToCart: () => { }
+    handleAddToCart: () => { },
+    handleRemoveFromCart: () => { },
 });
 
 
@@ -38,11 +40,27 @@ function CartContextProvider({ children }: { children: React.ReactNode }) {
             }
             const newCart = await getCartItems();
             setCartItems(newCart ?? defaultCart);
-            console.log(cartItems)
         } else {
             navigate('/login')
         }
     }
+
+    const handleRemoveFromCart = async (item: ToUpdateItem) => {
+        if (isAuthenticated) {
+            try {
+                await removeCartItem(item)
+            } catch (error) {
+                console.log(error);
+            }
+            const newCart = await getCartItems();
+            setCartItems(newCart ?? defaultCart);
+        } else {
+            navigate('/login')
+        }
+    }
+
+
+
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -57,7 +75,7 @@ function CartContextProvider({ children }: { children: React.ReactNode }) {
 
 
     return (
-        <CartContext.Provider value={{ cartItems, handleAddToCart }}>
+        <CartContext.Provider value={{ cartItems, handleAddToCart, handleRemoveFromCart }}>
             {children}
         </CartContext.Provider>
     );

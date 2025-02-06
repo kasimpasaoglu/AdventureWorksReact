@@ -42,3 +42,21 @@ export const addCartItem = async (item: ToUpdateItem) => {
         throw error;
     }
 }
+
+export const removeCartItem = async (item: ToUpdateItem) => {
+    try {
+        const response = await fetch(BASE_URL, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(item)
+        });
+        if (!response.ok) {
+            throw new Error("Failed to add item to cart")
+        }
+    } catch (error) {
+        throw error;
+    }
+}

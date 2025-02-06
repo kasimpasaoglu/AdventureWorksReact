@@ -9,6 +9,7 @@ export interface Details {
 }
 
 export interface Item {
+    productId: number
     productName: string
     largePhoto: string
     quantity: number
