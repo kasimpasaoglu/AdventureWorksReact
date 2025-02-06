@@ -1,18 +1,36 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Transition } from '@headlessui/react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import logo from '../assets/react.svg'
-import { Bars3Icon, BuildingStorefrontIcon, ChevronDownIcon, HomeIcon, ShoppingCartIcon, UserCircleIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { Bars3Icon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Badge } from '@mui/material';
 import { useLocation } from 'react-router';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { CartContext } from '../context/CartContext';
 
 
 
 function Header() {
-
-
-
+    const { cartItems } = useContext(CartContext)
+    const { isAuthenticated } = useContext(AuthContext)
+    const navigate = useNavigate();
     const { pathname } = useLocation();
 
+    const handleAccountClick = () => {
+        if (isAuthenticated) {
+            navigate('/account');
+        } else {
+            navigate('/login');
+        }
+    };
+
+    const handleCartClick = () => {
+        if (isAuthenticated) {
+            navigate('/cart');
+        } else {
+            navigate('/login');
+        }
+    }
     return (
         <>
             <nav className="sticky top-0 z-50 shadow-md md:rounded-b-3xl text-cream bg-darkblue shadow-darkblue">
@@ -43,22 +61,23 @@ function Header() {
                             </Link>
 
                             <button
+                                onClick={handleCartClick}
                                 className={`${pathname === '/cart' ? "bg-black" : "bg-lightred "} text-cream px-2 py-1 duration-300 rounded-lg hover:bg-red-900`}
                                 type="button"
                             >
-                                <Badge badgeContent='1' color='primary'>
+                                <Badge badgeContent={cartItems.details.itemCount} color='primary'>
                                     <ShoppingCartIcon className="h-6" />
                                 </Badge>
                             </button>
 
-                            <Link to="/account"
+                            <button onClick={handleAccountClick}
                                 className={`${pathname === '/account' ? "text-cream bg-black" : "text-darkblue bg-skyblue"} px-2 py-1 duration-300 rounded-lg  hover:bg-gray-600 hover:text-cream`}
                                 type="button"
                             >
                                 <Badge>
                                     <UserIcon className="h-6" />
                                 </Badge>
-                            </Link>
+                            </button>
 
                         </div>
 
@@ -68,10 +87,11 @@ function Header() {
                                 {({ open }) => (
                                     <>
                                         <button
+                                            onClick={handleCartClick}
                                             className={`${pathname === '/cart' ? "bg-black" : "bg-lightred "} text-cream px-2 py-1 duration-300 rounded-lg hover:bg-red-900`}
                                             type="button"
                                         >
-                                            <Badge badgeContent='1' color='primary'>
+                                            <Badge badgeContent={cartItems.details.itemCount} color='primary'>
                                                 <ShoppingCartIcon className="h-6" />
                                             </Badge>
                                         </button>

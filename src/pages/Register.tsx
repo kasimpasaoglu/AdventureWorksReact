@@ -63,7 +63,6 @@ function Register() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
-        console.log(formData);
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

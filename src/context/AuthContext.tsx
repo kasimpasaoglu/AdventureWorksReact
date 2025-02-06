@@ -13,13 +13,15 @@ interface AuthContextType {
     login: (user: LoginPostBody) => Promise<loginResponse>;
     logout: () => void;
     constants?: AddressConstants;
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     login: async () => ({ message: "Not implemented" }),
     logout: () => { },
-    constants: {}
+    constants: {},
+    setIsAuthenticated: () => { },
 })
 
 
@@ -60,13 +62,40 @@ function AuthContextProvider({ children }: { children: React.ReactNode }) {
         getConstants().then(constants => {
             setConstants(constants);
         });
-    }, [])
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            setIsAuthenticated(true);
+            try {
+                const decodedToken = JSON.parse(atob(token.split(".")[1])); // JWT decode işlemi
+                const expirationTime = decodedToken.exp * 1000; // Milisaniyeye çevir
+                const currentTime = Date.now();
+
+                if (currentTime >= expirationTime) {
+                    logout(); // Token süresi dolduğunda çıkış yap
+                } else {
+                    // logout için zamanlayıcı başlat
+                    const timeoutId = setTimeout(logout, expirationTime - currentTime);
+
+                    // Cleanup fonksiyonu ile önceki timeout'u temizle
+                    return () => clearTimeout(timeoutId);
+                }
+            } catch (error) {
+                console.error("Token decoding error:", error);
+                logout(); // Token bozuksa çıkış yap
+            }
+        }
+    }, []);
+
+
 
     return (
         <AuthContext.Provider value={{
             isAuthenticated,
             login, logout,
-            constants
+            constants,
+            setIsAuthenticated
         }}>
             {children}
         </AuthContext.Provider>

@@ -50,8 +50,6 @@ const Footer = (props: Props) => {
                 </a>
             </div>
         </footer>
-
-
     )
 }
 

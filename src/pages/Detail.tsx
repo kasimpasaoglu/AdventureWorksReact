@@ -1,10 +1,92 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+import { getSingleProductById } from '../infrastructure/requests'
+import { ProductDetail } from '../types/product'
+import { Link } from 'react-router-dom'
+import { FaShop } from 'react-icons/fa6'
+import { BiError } from 'react-icons/bi'
+import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 
-type Props = {}
 
-function Detail({ }: Props) {
+function Detail() {
+
+    const [item, setItem] = useState<ProductDetail | null>(null)
+    const [isAnimating, setIsAnimating] = useState(false)
+    const { id } = useParams<{ id: string }>()
+
+
+    useEffect(() => {
+        if (id) {
+            getSingleProductById(id)
+                .then((data) => {
+                    setItem(data)
+                    console.log(data)
+                })
+                .catch(() => setItem(null))
+        }
+    }, [id])
+
+
+    const handleAddCart = () => {
+        setIsAnimating(true)
+        setTimeout(() => {
+            setIsAnimating(false)
+        }, 200);
+    }
+
     return (
-        <div>Detail</div>
+
+        <div className='mx-auto max-w-[1700px] min-h-[calc(100vh-100)] flex flex-col justify-center'>
+            {item ? (
+                <div className='grid my-10 md:grid-cols-2 bg-darkblue text-cream rounded-xl py-14 px-10 gap-4'>
+                    <h1 className='md:col-span-2 text-center'>{item.name}</h1>
+                    <img className='col-span-1 w-full h-full p-4 rounded-3xl' src={`data:image/png;base64,${item.largePhoto}`} alt={item.name} />
+
+                    <div className='col-span-1 flex flex-col items-start justify-evenly p-5 gap-3'>
+                        <div className='flex gap-2 items-center'>
+                            <p className='text-lg font-bold'>Price: ${item.standardCost}</p>
+                            <p className='line-through'>${item.listPrice}</p>
+                        </div>
+                        {item.class &&
+                            <p>
+                                Class: <span className='font-bold'>{item.class.trim() == "H" ? "High" : item.class.trim() == "M" ? "Medium" : "Low"}</span>
+                            </p>
+                        }
+                        {item.color &&
+                            <p>
+                                Color: <span className='font-bold'>{item.color}</span>
+                                <span
+                                    style={{ backgroundColor: item.color }}
+                                    className="inline-block w-4 h-4 ml-2 rounded-full"
+                                ></span>
+                            </p>
+                        }
+                        {item.size &&
+                            <p>Size: <span className='font-bold'>{item.size == "S" ? "Small" : item.size == "M" ? "Medium" : "Large"}</span></p>
+                        }
+                        {item.style &&
+                            <p>Style: <span className='font-bold'>{item.style.trim() == "U" ? "Unisex" : item.style.trim() == "M" ? "Men" : "Women"}</span></p>
+                        }
+                        <p>{item.description}</p>
+                        <button
+
+                            className={`bg-seablue px-4 py-1 rounded-md hover:bg-lightred text-cream ${isAnimating ? 'animate-shake' : ''}`}
+                            type="button"
+                            onClick={handleAddCart}>
+                            <ShoppingCartIcon className="h-6 inline-block" /> <span>Add To Chart</span>
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <div className='flex flex-col justify-center items-center bg-darkblue text-cream w-screen px-10 py-5  text-center md:w-[50vw] h-[50vh] rounded-3xl gap-10'>
+                    <h2 className='flex gap-5'>404 Error <BiError /></h2>
+                    <h1>Item Cannot Found</h1>
+                    <Link to='/shop' className='bg-lightred text-3xl px-10 py-5 rounded-full flex gap-5'>Go Shop
+                        <FaShop />
+                    </Link>
+                </div>
+            )}
+        </div>
     )
 }
 

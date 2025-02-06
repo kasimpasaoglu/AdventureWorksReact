@@ -16,7 +16,7 @@ export interface User {
     firstName?: string
     lastName?: string
     emailAddress1?: string
-    password?: string
+    password: string
     addressTypeId?: number
     addressLine1?: string
     addressLine2?: string

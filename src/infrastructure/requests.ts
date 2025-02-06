@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
-import { Product } from "../types/product";
+import { Product, ProductDetail } from "../types/product";
 
 
 // Axios istemcisi
@@ -37,8 +37,8 @@ export const apiRequest = async <T, K = unknown>(
 
 
 // Tek ürün getirme
-export const getSingleProductById = async (productId: string): Promise<Product> => {
-    return await apiRequest<Product>("GET", `/product/${productId}`);
+export const getSingleProductById = async (productId: string): Promise<ProductDetail> => {
+    return await apiRequest<ProductDetail>("GET", `/product/${productId}`);
 };
 
 export default apiClient;
