@@ -68,29 +68,6 @@ const Account = () => {
         })
     }
 
-    const handleDeleteAccount = async () => {
-        try {
-            await deleteUser()
-            localStorage.removeItem('token')
-            setIsAuthenticated(false)
-            Swal.fire({
-                title: 'Success',
-                text: 'Your account has been deleted successfully',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            })
-            navigate('/')
-        } catch (error) {
-            console.log(error);
-            Swal.fire({
-                title: 'Error',
-                text: `There was an error deleting your account ${error}`,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            })
-        }
-    };
-
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.target.value;
         setUser({ ...user, password });
@@ -111,6 +88,29 @@ const Account = () => {
             setPasswordError("Passwords do not match")
         } else {
             setPasswordError(null);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            await deleteUser()
+            localStorage.removeItem('token')
+            setIsAuthenticated(false)
+            Swal.fire({
+                title: 'Success',
+                text: 'Your account has been deleted successfully',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            })
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Error',
+                text: `There was an error deleting your account ${error}`,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
         }
     };
 
@@ -218,7 +218,8 @@ const Account = () => {
                         <input className='text-darkblue p-1 bg-cream' type="number" id="postalCode" name="postalCode" value={user.postalCode || ""} onChange={handleChange} />
                     </div>
                 </div>
-                {/* Submit Button */}
+
+                {/* Buttons */}
                 <div className='md:col-span-2 w-full flex flex-col md:flex-row gap-4 items-center justify-evenly'>
 
                     <button

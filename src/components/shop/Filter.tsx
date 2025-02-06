@@ -48,7 +48,6 @@ function Filter() {
         });
     };
 
-
     useEffect(() => {
         fetchCategories();
     }, [])

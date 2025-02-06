@@ -18,47 +18,18 @@ const defaultFormData: RegisterUser = {
     postalCode: "",
 }
 
-const emailPromotion = {
-    0: "Don't Sent E-Mail Promotions",
-    1: "Sent E-Mail Promotions from AdventureWorks",
-    2: "Sent E-Mail Promotions from AdventureWorks and selected partners"
-}
-
 function Register() {
 
     const { constants } = useContext(AuthContext)
     const addressTypes = constants?.addressTypes
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
 
     const [formData, setFormData] = useState<RegisterUser>(defaultFormData)
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [passwordError, setPasswordError] = useState<string | null>(null)
 
-
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const password = e.target.value;
-        setFormData({ ...formData, password });
-
-        if (!passwordRegex.test(password)) {
-            setPasswordError("Password is not strong enough");
-        } else if (confirmPassword && password !== confirmPassword) {
-            setPasswordError("Passwords do not match");
-        } else {
-            setPasswordError(null);
-        }
-    };
-
-
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setConfirmPassword(e.target.value)
-
-        if (formData.password !== e.target.value) {
-            setPasswordError("Passwords do not match")
-        } else {
-            setPasswordError(null);
-        }
-    };
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -99,7 +70,28 @@ function Register() {
         }).then(() => navigate('/login'));
     }
 
-    const navigate = useNavigate();
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const password = e.target.value;
+        setFormData({ ...formData, password });
+
+        if (!passwordRegex.test(password)) {
+            setPasswordError("Password is not strong enough");
+        } else if (confirmPassword && password !== confirmPassword) {
+            setPasswordError("Passwords do not match");
+        } else {
+            setPasswordError(null);
+        }
+    }
+
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value)
+
+        if (formData.password !== e.target.value) {
+            setPasswordError("Passwords do not match")
+        } else {
+            setPasswordError(null);
+        }
+    }
 
     return (
         <div className='flex items-center justify-center min-h-[calc(100vh-100px)] relative'>

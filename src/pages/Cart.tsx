@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { CartContext } from "../context/CartContext"
 import { Item } from "../types/cart";
 import ShoppingCartItem from "../components/cart/ShoppingCartItem";
+import EmptyCart from "../components/cart/EmptyCart";
 
 
 
@@ -18,13 +19,9 @@ const Cart = () => {
 
     if (items.length === 0) {
         return (
-            <div className="max-w-[90rem] mx-auto my-10 bg-darkblue text-cream p-10 rounded-2xl shadow-2xl">
-                <h3 className="text-center font-bold border-b pb-10 mb-10">Shopping Cart</h3>
-                <p className="text-center">Your cart is empty.</p>
-            </div>
+            <EmptyCart />
         )
     }
-
     return (
         <div className="max-w-[90rem] mx-auto my-10 bg-darkblue text-cream p-10 rounded-2xl shadow-2xl">
             <h3 className="text-center font-bold border-b pb-10 mb-10">Shopping Cart</h3>
