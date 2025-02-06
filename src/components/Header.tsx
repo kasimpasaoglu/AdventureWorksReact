@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Transition } from '@headlessui/react';
 import { Link, useNavigate } from 'react-router';
-import logo from '../assets/react.svg'
+import logo from '../../public/react.svg'
 import { Bars3Icon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Badge } from '@mui/material';
 import { useLocation } from 'react-router';
@@ -37,7 +37,7 @@ function Header() {
                 <div className="px-4 mx-auto max-w-[1500px] sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         {/* Logo */}
-                        <div className="flex flex-row gap-4 animate-pulse">
+                        <div className="flex flex-row gap-4 items-center animate-pulse">
                             <img className='h-6' src={logo} alt="logo" />
                             <h1 className="text-lg md:text-2xl font-bold">Adventure Works Store</h1>
                         </div>
