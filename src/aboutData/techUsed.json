@@ -1,0 +1,27 @@
+{
+    "title": "Technologies Used",
+    "sub": [
+        {
+            "subtitle": "Backend (API)",
+            "bulletPoints": [
+                "Language: C# (.NET 9.0)",
+                "Authentication: JWT Authentication",
+                "Validation: Fluent Validation",
+                "Database Management: UnitOfWork & Generic Repository",
+                "API Documentation: Swagger"
+            ]
+        },
+        {
+            "subtitle": "Frontend",
+            "bulletPoints": [
+                "Library : React",
+                "Framewodk : Vite",
+                "Language: TypeScript",
+                "CSS: TailwindCSS",
+                "State Management: Context API",
+                "Routing: React Router",
+                "Security: Authentication and access control for specific pages (e.g., Cart, Account)."
+            ]
+        }
+    ]
+}

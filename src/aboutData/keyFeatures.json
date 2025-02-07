@@ -1,0 +1,28 @@
+{
+    "title": "Key Features",
+    "sub": [
+        {
+            "subtitle": "Product Listing and Filtering",
+            "bulletPoints": [
+                "Users can filter products by category, subcategory, price range, and color.",
+                "Instant filtering using a debounce mechanism to prevent unnecessary API requests.",
+                "Products can be searched directly by name."
+            ]
+        },
+        {
+            "subtitle": "Shopping Cart Management",
+            "bulletPoints": [
+                "The shopping cart syncs in real-time with the database.",
+                "Cart items are preserved even if the page is refreshed or closed.",
+                "Future updates will enable temporary stock reduction for added items."
+            ]
+        },
+        {
+            "subtitle": "User Account Management",
+            "bulletPoints": [
+                "Users can register, log in, and update their account information.",
+                "Login authentication is required to access restricted pages like the Cart and Account pages."
+            ]
+        }
+    ]
+}

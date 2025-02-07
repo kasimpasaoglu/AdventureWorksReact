@@ -1,0 +1,27 @@
+{
+    "title": "Development Process",
+    "sub": [
+        {
+            "subtitle": "Backend Development 1️⃣",
+            "bulletPoints": [
+                "The API was built using .NET 9.0.",
+                "UnitOfWork + Generic Repository structure was implemented to ensure data integrity and transaction management.",
+                "Swagger documentation was created for API endpoints.",
+                "JWT Authentication was integrated for user authentication.",
+                "The API was deployed and tested."
+            ]
+        },
+        {
+            "subtitle": "Frontend Development 2️⃣ ",
+            "bulletPoints": [
+                "Static pages were initially built with React, Vite, and TypeScript.",
+                "Later, Context API was implemented to make pages dynamic.",
+                "Dynamic pages created",
+                "Added functionality to product cards to add items to the basket.",
+                "The UI was styled using TailwindCSS to ensure responsiveness.",
+                "Tested different scenerios that user encounter during visit.",
+                "Bug fixing, polishing"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "title": "Planned Future Enhancements",
+    "sub": [
+        {
+            "subtitle": "Enhanced product detail page",
+            "bulletPoints": [
+                "Display similar products below the main product.",
+                "Show reviews from users who previously purchased the product."
+            ]
+        },
+        {
+            "subtitle": "Order & Payment System",
+            "bulletPoints": [
+                "Implement a mock payment page.",
+                "Add an “Order History” page where users can see their past purchases and leave reviews."
+            ]
+        },
+        {
+            "subtitle": "Admin Panel",
+            "bulletPoints": [
+                "A dedicated admin dashboard for managing orders and updating shipment status."
+            ]
+        },
+        {
+            "subtitle": "UI/UX Improvements",
+            "bulletPoints": [
+                "Redesign the UI with a modern, clean, and well-structured layout."
+            ]
+        }
+    ]
+}

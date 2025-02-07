@@ -16,6 +16,7 @@ import GoTopButton from './components/GoTopButton'
 import { AuthContextProvider } from './context/AuthContext'
 import Register from './pages/Register'
 import { CartContextProvider } from './context/CartContext'
+import ScrollToTop from './components/ScrollToTop'
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <AuthContextProvider>
         <ShopContextProvider>
           <CartContextProvider>
+            <ScrollToTop />
             <Header />
             <GoTopButton />
             <Routes>
