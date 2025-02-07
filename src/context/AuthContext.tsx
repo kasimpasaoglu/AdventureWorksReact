@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { AddressConstants, LoginPostBody, RegisterUser } from "../types/user";
-import { apiLogin, apiRegister, getConstants } from "../infrastructure/userRequests";
+import { AddressConstants, LoginPostBody } from "../types/user";
+import { apiLogin, getConstants } from "../infrastructure/userRequests";
 
 interface loginResponse {
     isSuccessful?: boolean;

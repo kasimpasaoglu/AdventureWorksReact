@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ShopContext } from '../../context/ShopContext'
 
 type Props = {}

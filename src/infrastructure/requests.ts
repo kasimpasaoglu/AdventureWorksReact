@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
-import { Product, ProductDetail } from "../types/product";
+import { ProductDetail } from "../types/product";
 
 
 // Axios istemcisi

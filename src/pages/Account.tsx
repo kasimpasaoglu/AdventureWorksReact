@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
 import clsx from "clsx";
 import { useNavigate } from "react-router";
-import { ArrowLeftCircleIcon, ArrowLeftEndOnRectangleIcon, ArrowPathIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftEndOnRectangleIcon, ArrowPathIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const defaultUser: User = {
     title: "",

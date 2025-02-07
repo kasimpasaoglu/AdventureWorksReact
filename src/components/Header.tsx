@@ -4,10 +4,9 @@ import logo from '/react.svg'
 import { Bars3Icon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Badge } from '@mui/material';
 import { useLocation } from 'react-router';
-import { useContext, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
-import { useClickOutside } from '@mantine/hooks';
 
 
 
