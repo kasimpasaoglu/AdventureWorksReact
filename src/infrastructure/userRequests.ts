@@ -1,6 +1,6 @@
 import { AddressConstants, LoginPostBody, RegisterUser, User } from "../types/user";
 
-const BASE_URL = "http://adventureworksapi.runasp.net/api/User";
+const BASE_URL = "https://adventureworksapi-main.up.railway.app/api/User";
 
 interface loginResponse {
     isSuccessful?: boolean;

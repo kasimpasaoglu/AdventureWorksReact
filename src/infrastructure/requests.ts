@@ -4,7 +4,7 @@ import { ProductDetail } from "../types/product";
 
 // Axios istemcisi
 const apiClient = axios.create({
-    baseURL: "http://adventureworksapi.runasp.net/api",
+    baseURL: "https://adventureworksapi-main.up.railway.app/api",
     timeout: 5000,
     headers: {
         "Content-Type": "application/json",

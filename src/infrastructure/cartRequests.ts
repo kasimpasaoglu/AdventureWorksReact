@@ -1,6 +1,6 @@
 import { Cart, ToUpdateItem } from "../types/cart";
 
-const BASE_URL = "http://adventureworksapi.runasp.net/api/Cart"
+const BASE_URL = "https://adventureworksapi-main.up.railway.app/api/Cart"
 
 export const getCartItems = async (): Promise<Cart | null> => {
 

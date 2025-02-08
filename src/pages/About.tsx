@@ -133,6 +133,20 @@ const AboutPage = () => {
 
                     <p>If you have any feedback or suggestions about the project, feel free to reach out through the links in the footer
                     </p>
+                    <p className="text-xl text-lightred mt-4 font-bold">
+                        This project uses a free hosting platform for the API, which may result in lower performance.
+                        To test the API performance, use link below.
+                        <br />
+                        Due to the HTTP protocol provided by MonsterASP, I cannot use this API on Netlify.
+                    </p>
+                    <a
+                        href="http://adventureworksapi.runasp.net/swagger"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline"
+                    >
+                        http://adventureworksapi.runasp.net/swagger
+                    </a>
 
 
                 </div>
