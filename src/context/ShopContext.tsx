@@ -87,18 +87,22 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
             const currentFilters = filtersRef.current; // en guncel filters degerleri
 
             const params = new URLSearchParams();
+            console.log(params.toString())
 
-            if (currentFilters.productCategoryId) params.append("productCategoryId", currentFilters.productCategoryId.toString());
-            if (currentFilters.productSubcategoryId) params.append("productSubcategoryId", currentFilters.productSubcategoryId.toString());
-            if (currentFilters.minPrice) params.append("minPrice", currentFilters.minPrice.toString());
-            if (currentFilters.maxPrice) params.append("maxPrice", currentFilters.maxPrice.toString());
-            if (currentFilters.searchString) params.append("searchString", currentFilters.searchString);
-            if (currentFilters.sortBy) params.append("sortBy", currentFilters.sortBy);
-            if (currentFilters.pageSize) params.append("pageSize", currentFilters.pageSize.toString());
-            if (currentFilters.pageNumber) params.append("pageNumber", currentFilters.pageNumber.toString());
-            if ((currentFilters.selectedColors ?? []).length > 0) {
-                params.append("selectedColors", currentFilters.selectedColors!.join(","));
-            }
+            Object.keys(currentFilters).forEach((key) => {
+
+                const value = currentFilters[key as keyof typeof currentFilters]
+                console.log("value", value)
+
+                if (value !== undefined && value !== null) {
+                    if (Array.isArray(value) && value.length > 0) {
+                        params.append(key, value.join(','))
+                    } else if (!Array.isArray(value)) {
+                        params.append(key, value.toString())
+                    }
+                }
+            })
+
 
             const queryString = params.toString();
             const apiUrl = `/product?${queryString}`; // API URL’si
@@ -106,6 +110,7 @@ function ShopContextProvider({ children }: { children: React.ReactNode }) {
             const data = await apiRequest<Product[]>("GET", apiUrl);
             setProducts(isNewFilter ? data : (prev) => [...prev, ...data]);
             // yeni filtreyse direk datayi bas, sadece sayfa degismis filtre ayniysa datayi `ekle`
+            console.log("queryString", queryString);
         } catch (error) {
             console.error("Error fetching products:", error);
         } finally {

@@ -10,6 +10,9 @@ export interface Filters {
     pageNumber?: number
 }
 
+
+
+
 export interface Product {
     productId: number;
     name: string;
